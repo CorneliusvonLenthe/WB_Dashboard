@@ -1,0 +1,119 @@
+#install.packages('rio')
+#install.packages('janitor')
+library(janitor)
+library(rio)
+library(readxl)
+library(data.table)
+library(rvest)
+library(writexl)
+#### 1. UNEMPLOYMENT RATE ####
+          ## 1a. ALBANIA ##
+
+
+url_AlbaniaUE <- "http://www.instat.gov.al/media/8230/tab-5.xlsx"
+AlbaniaUE = tryCatch(rio::import(url_AlbaniaUE) , error = function(e) return(NA))
+AlbaniaUE <- AlbaniaUE[-c(22,21,16,11,6,4,3,2,1),-c(1)]
+AlbaniaUE <- AlbaniaUE %>%
+  row_to_names(row_number = 1)
+colnumber_AlbaniaAge <- ncol(AlbaniaUE)
+colnames(AlbaniaUE)[ncol(AlbaniaUE)] <- "agegroup"
+AlbaniaUE$x <- 1:12
+AlbaniaGender <- read.table(text = "x     gender country
+                         1     Total Albania
+                            2  Total Albania   
+                            3     Total Albania
+                            4     Total Albania
+                            5     Male Albania
+                            6     Male Albania
+                            7     Male Albania
+                            8     Male Albania
+                            9     Female Albania
+                            10    Female  Albania
+                            11     Female Albania
+                            12    Female Albania", header = TRUE)
+AlbaniaUE <- merge(AlbaniaUE, AlbaniaGender)
+?melt
+AlbaniaUE_final <- melt(setDT(AlbaniaUE), id.vars = c("x","country", "gender", "agegroup"), variable.name = "Year", value.name = 'ue_rate')
+AlbaniaUE_final <- AlbaniaUE_final[,-c(1)]
+AlbaniaUE_final$country_code <- "ALB"
+write_xlsx(AlbaniaUE_final,"C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/Albania/ALBUnemploymentRate2020.xlsx")
+
+              ## 1b. North Macedonia ##
+
+url_MKDUE <- html("http://makstat.stat.gov.mk/PXWeb/sq/9e822fca-bf24-4aeb-bed4-4489f1a2b562")
+MKDUE <- url_MKDUE %>%
+  html_nodes(xpath = '//*[@id="ctl00_ctl00_ContentPlaceHolderMain_cphMain_Table_Table_DataTable"]') %>%
+  html_table(fill = TRUE)
+
+MKDUE <- MKDUE[[1]]
+MKDUE <- MKDUE[-c(1),]
+colnames(MKDUE) <- c("agegroup", "Year", "Total", "Male", "Female")
+MKDUEE_final <- melt(setDT(MKDUE), id.vars = c("agegroup","Year"), variable.name = "gender", value.name = 'ue_rate')
+#MKDUEE_final <- MKDUEE_final[,-c(1)]
+MKDUEE_final$agegroup[MKDUEE_final$agegroup == "Total"] <- "15+"
+MKDUEE_final$country_code <- "MKD"
+MKDUEE_final$country <- "North Macedonia"
+
+write_xlsx(MKDUEE_final,"C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/MKD/MKDUnemploymentRate2020.xlsx")
+
+            ## 1c. Serbia ##
+url_SERUE <- "https://data.stat.gov.rs/Home/DisplayResult?languageCode=en-US&displayMode=exportExcel&subAreaId=2400020102"
+SERUE = tryCatch(rio::import(url_SERUE) , error = function(e) return(NA))
+
+SERUE <- subset(SERUE, select = c("Indikator", "Vrednost", "nStarGrupa", "nPol", "nVrTacka"))
+
+names(SERUE)[names(SERUE) == 'Indikator'] <- 'Indicator'
+names(SERUE)[names(SERUE) == 'Vrednost'] <- 'Value'
+names(SERUE)[names(SERUE) == 'nStarGrupa'] <- 'agegroup'
+names(SERUE)[names(SERUE) == 'nPol'] <- 'gender'
+names(SERUE)[names(SERUE) == 'nVrTacka'] <- 'Year'
+
+SERUE$Indicator[SERUE$Indicator == "Rates of unemployment"] <- "ue_rate"
+SERUE$Indicator[SERUE$Indicator == "Rates of inactivity"] <- "inactivity_rate"
+SERUE$Indicator[SERUE$Indicator == "Rates of employment"] <- "employment_rate"
+SERUE$Indicator[SERUE$Indicator == "Rates of activity"] <- "activity_rate"
+
+SERUE$agegroup[SERUE$agegroup == "15 year and more"] <- "15+"
+SERUE$agegroup[SERUE$agegroup == "Young (15-24)"] <- "15-24"
+SERUE$agegroup[SERUE$agegroup == "Working age (15-64)"] <- "15-64"
+
+SERUE_final <- dcast(setDT(SERUE), agegroup + Year + gender ~ Indicator, value.var = "Value")
+SERUE_final$country_code <- "RS"
+SERUE_final$country <- "Republic of Serbia"
+write_xlsx(SERUE_final,"C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/RS/RSAllIndicators2020.xlsx")
+SERUE <- subset(SERUE_final, select = c("agegroup", "Year", "gender", "ue_rate", "country_code", "country"))
+SERIA <- subset(SERUE_final, select = c("agegroup", "Year", "gender", "inactivity_rate", "country_code", "country"))
+SERA <- subset(SERUE_final, select = c("agegroup", "Year", "gender", "activity_rate", "country_code", "country"))
+SERE <- subset(SERUE_final, select = c("agegroup", "Year", "gender", "employment_rate", "country_code", "country"))
+write_xlsx(SERUE,"C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/RS/RSUnemploymentRate2020.xlsx")
+write_xlsx(SERA,"C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/RS/RSActivityRate2020.xlsx")
+write_xlsx(SERIA,"C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/RS/RSInactivityRate2020.xlsx")
+write_xlsx(SERE,"C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/RS/RSEmploymentRate2020.xlsx")
+
+            ## 1d. Montenegro ##
+
+url_MNUE <- "http://bazapodataka.monstat.org/PXWebEng/sq/0bc5853a-a562-46be-b9b9-d617272e596f"
+MNUE = tryCatch(rio::import(url_MNUE) , error = function(e) return(NA))
+
+nrows_MNUE <- nrow(MNUE)
+nrrows_MNUE <- nrow(MNUE)-25
+MNUE <- MNUE[-c(nrrows_MNUE:nrows_MNUE),]
+MNUE <- MNUE[-c(1:2),]
+MNUE <- MNUE %>%
+  row_to_names(row_number = 1)
+colnames(MNUE)[1] <- "Year"
+
+MNUE_final <- melt(setDT(MNUE), id.vars = c("Year"), variable.name = "gender", value.name = 'ue_rate')
+
+MNUE_final$country_code <- "ME"
+MNUE_final$country <- "Montenegro"
+MNUE_final$agegroup <- "15+"
+write_xlsx(MNUE_final,"C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/ME/MEUnemploymentRate2020.xlsx")
+
+                #1e Bosnia and Herzegovina#
+
+                ###1f Kosovo###
+ME <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/ME/MEUnemploymentRate2020.xlsx")
+SR <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/RS/RSUnemploymentRate2020.xlsx")
+MasterFile <- rbind(ME, SR)
+View(MasterFile)

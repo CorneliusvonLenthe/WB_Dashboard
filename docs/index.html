@@ -8,9 +8,9 @@
 
 
 
-<title>Untitled</title>
+<title>Western Balkans Dashboard</title>
 
-<meta property="og:title" content="Untitled" />
+<meta property="og:title" content="Western Balkans Dashboard" />
 
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 
@@ -21,7 +21,10 @@
 window.FlexDashboardComponents = [];
 </script>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script id="flexdashboard-navbar" type="application/json">
+[{"icon":"fa-share-alt","items":[{"title":"Twitter","icon":"fa-twitter"},{"title":"Facebook","icon":"fa-facebook"},{"title":"Google+","icon":"fa-google-plus"},{"title":"LinkedIn","icon":"fa-linkedin"},{"title":"Pinterest","icon":"fa-pinterest"}]}]
+</script>
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -37,6 +40,19 @@ window.FlexDashboardComponents = [];
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="shared/ionrangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="shared/strftime/strftime-min.js"></script>
+<link href="shared/ionrangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
+<link href="shared/selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="shared/selectize/js/selectize.min.js"></script>
+<script src="shared/selectize/accessibility/js/selectize-plugin-a11y.min.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.16/datatables.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <style type="text/css">
 
 /*
@@ -814,7 +830,7 @@ html, body {
   
 </span>
 <span class="navbar-brand">
-  Untitled
+  Western Balkans Dashboard
   <span class="navbar-author">
         </span>
 </span>
@@ -2621,28 +2637,87 @@ window.FlexDashboardComponents.push({
 
 <div id="dashboard-container">
 
-<div id="column" class="section level2" data-width="650">
-<h2>Column</h2>
-<div id="chart-a" class="section level3">
-<h3>Chart A</h3>
+<div id="inputs" class="section level2 sidebar">
+<h2>Inputs</h2>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
+<p><div class="form-group shiny-input-container">
+<label class="control-label" id="Year-label" for="Year">Year</label>
+<input class="js-range-slider" id="Year" data-skin="shiny" data-type="double" data-min="2016" data-max="2020" data-from="2016" data-to="2020" data-step="1" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="" data-prettify-enabled="false" data-keyboard="true" data-drag-interval="true" data-data-type="number"/>
+</div><div id="show_countries" class="form-group shiny-input-checkboxgroup shiny-input-container" role="group" aria-labelledby="show_countries-label">
+<label class="control-label" id="show_countries-label" for="show_countries">Countries to show:</label>
+<div class="shiny-options-group">
+<div class="checkbox">
+<label>
+<input type="checkbox" name="show_countries" value="Montenegro" checked="checked"/>
+<span>Montenegro</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="show_countries" value="Republic of Serbia" checked="checked"/>
+<span>Republic of Serbia</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="show_countries" value="Albania" checked="checked"/>
+<span>Albania</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="show_countries" value="North Macedonia" checked="checked"/>
+<span>North Macedonia</span>
+</label>
 </div>
 </div>
-<div id="column-1" class="section level2" data-width="350">
-<h2>Column</h2>
-<div id="chart-b" class="section level3">
-<h3>Chart B</h3>
+</div><div class="form-group shiny-input-container">
+<div class="checkbox">
+<label>
+<input id="label" type="checkbox" checked="checked"/>
+<span>Label</span>
+</label>
+</div>
+</div><div class="form-group shiny-input-container">
+<label class="control-label" id="gender-label" for="gender">Gender</label>
+<div>
+<select id="gender"><option value="Total" selected>Total</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option></select>
+<script type="application/json" data-for="gender" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div><div class="form-group shiny-input-container">
+<label class="control-label" id="agegroup-label" for="agegroup">Age group</label>
+<div>
+<select id="agegroup"><option value="15+" selected>15+</option>
+<option value="15-24">15-24</option>
+<option value="15-64">15-64</option>
+<option value="15-29">15-29</option>
+<option value="30-64">30-64</option></select>
+<script type="application/json" data-for="agegroup" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div></p>
+</div>
+<div id="row" class="section level2">
+<h2>Row</h2>
+<div id="visual" class="section level3">
+<h3>Visual</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
+<div id="outad1dcfb9424df092" class="shiny-plot-output" style="width:100%;height:400px;"></div>
 </div>
-<div id="chart-c" class="section level3">
-<h3>Chart C</h3>
+</div>
+<div id="row-1" class="section level2">
+<h2>Row</h2>
+<div id="table" class="section level3">
+<h3>Table</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
+<div id="out3b77b9176a38826d" style="width:100%; height:auto; " class="datatables html-widget html-widget-output"></div>
 </div>
 </div>
 
@@ -2669,7 +2744,7 @@ $(document).ready(function () {
   FlexDashboard.init({
     theme: "cosmo",
     fillPage: true,
-    orientation: "columns",
+    orientation: "rows",
     storyboard: false,
     defaultFigWidth: 576,
     defaultFigHeight: 460,
