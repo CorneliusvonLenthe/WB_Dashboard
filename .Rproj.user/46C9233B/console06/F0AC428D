@@ -363,4 +363,50 @@ Documents/WB_Dashboard/WB_Dashboard/.git/[0K
 [0K[?25h]0;  - git  add *[?25l
 C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Ka
 dd *[0K
+[0K[?25h]0;  - git  commit -m "init commit"[?25l
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Kc
+ommit -m "init commit"[0K
+[0K[?25h]0;  - git  remote add origin git@github.com:CorneliusvonLenthe/WB_Dashboard.git[master 8a16813] init commit[0K[?25l
+ 1 file changed, 355 insertions(+)[0K
+[0K
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Kr
+emote add origin git@github.com:CorneliusvonLenthe/WB_Dashboard.git[0K
+[0K[?25h]0;  - git  push -u origin mastererror: remote origin already exists.[0K[?25l
+[0K
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Kp
+ush -u origin master[0K
+[0K[?25hTo https://github.com/CorneliusvonLenthe/WB_Dashboard.git[0K[?25l
+ [0;31m! [rejected]       [0m master -> master (fetch first)[0K
+[0;31merror: failed to push some refs to 'https://github.com/CorneliusvonLenthe[0K/
+WB_Dashboard.git'[0m[0K
+[0;33mhint: Updates were rejected because the remote contains work that you do[0m[0K
+[0;33mhint: not have locally. This is usually caused by another repository push[0Ki
+ng[0m[0K
+[0;33mhint: to the same ref. You may want to first integrate the remote changes[0m[0K
+[0;33mhint: (e.g., 'git pull ...') before pushing again.[0m[0K
+[0;33mhint: See the 'Note about fast-forwards' in 'git push --help' for details[0K.
+[0m[0K
+[0K[?25h]0; [?25l
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>[0K[?25h^V[0K[?25lC:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>[0K[?25hgit [0Kp[?25l
+ull origin master[0K[?25h]0;  - git  pull origin master[?25l
+[0K[?25hremote: Enumerating objects: 4, done.[0K[?25l
+remote: Counting objects: 100% (4/4), done.[0K
+remote: Compressing objects: 100% (3/3), done.[0K
+[0K[?25h[?25lUnpacking objects:  33% (1/3)[0K[1G[?25hremote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0[0K[?25l
+Unpacking objects: 100% (3/3), 12.63 KiB | 862.00 KiB/s, done.[0K
+[0K[?25hFrom https://github.com/CorneliusvonLenthe/WB_Dashboard[0K[?25l
+ * branch            master     -> FETCH_HEAD[0K
+   990aa35..61c4bb6  master     -> origin/master[0K
+[0K[?25hMerge made by the 'recursive' strategy.[0K[?25l
+[0K[?25h]0;  MasterFile.xlsx | Bin [0;31m0[0m -> [0;32m13139[0m bytes[0K[?25l
+ 1 file changed, 0 insertions(+), 0 deletions(-)[0K
+ create mode 100644 MasterFile.xlsx[0K
+[0K
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>[0K[?25h]0;  - git  initgit [0Ki[?25l
+nit[0K
+[0K[?25h]0;  - git  add *Reinitialized existing Git repository in C:/Users/WB571596/OneDrive - WBG[0K/[?25l
+Documents/WB_Dashboard/WB_Dashboard/.git/[0K
+[0K
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Ka
+dd *[0K
 [0K[?25h
