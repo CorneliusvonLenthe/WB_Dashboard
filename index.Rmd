@@ -1,0 +1,111 @@
+---
+title: "Western Balkans Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    social: menu
+    source_code: embed
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+# load data in 'global' chunk so it can be shared by all users of the dashboard
+library(ggplot2)
+library(shiny)
+library(rlang)
+library(mgcv)
+library(tidyverse)
+library(readxl)
+library(hrbrthemes)
+library(flexdashboard)
+library(rmarkdown)
+library(digest)
+#install.packages(c("usethis", "gitcreds", "gh"))
+library(usethis)
+library(gitcreds)
+library(gh)
+usethis::use_git_config(user.name = "Cornelius von Lenthe", user.email = "corneliusvl@live.de")
+AL <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/Albania/ALBUnemploymentRate2020.xlsx")
+ME <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/ME/MEUnemploymentRate2020.xlsx")
+SR <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/RS/RSUnemploymentRate2020.xlsx")
+MKD <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/MKD/MKDUnemploymentRate2020.xlsx")
+
+MasterFile <- rbind(ME, SR)
+MasterFile <- rbind(MasterFile, AL)
+MasterFile <- rbind(MasterFile, MKD)
+MasterFile$Year <- as.numeric(MasterFile$Year)
+MasterFile$ue_rate <- as.numeric(MasterFile$ue_rate)
+MasterFile$ue_rate <- format(as.numeric(MasterFile$ue_rate), digits = 2)
+
+
+MasterFile$ue_rate <- lapply(MasterFile$ue_rate, format, decimal.mark = ",", digits = 2)
+MasterFile$ue_rate <- as.numeric(MasterFile$ue_rate)
+```
+
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+sliderInput('Year', 'Year', min=2016, max=max(MasterFile$Year),
+                value = c(2016,max(MasterFile$Year)), sep = "")
+    checkboxGroupInput("show_countries", "Countries to show:",
+                         unique(MasterFile$country), selected = unique(MasterFile$country))
+    checkboxInput('label', 'Label', value = TRUE)
+                  selectInput('gender', 'Gender', unique(MasterFile$gender))
+                  selectInput('agegroup', 'Age group', unique(MasterFile$agegroup))
+    
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Visual
+
+```{r}
+dataset <- reactive({MasterFile %>% filter(country %in% input$show_countries &
+                                               Year >= input$Year[1] & Year <= input$Year[2] & 
+                                               agegroup == input$agegroup & 
+                                               gender == input$gender)
+    
+  })
+  
+  renderPlot({
+    p <- ggplot(dataset(), aes(x=as.factor(Year), y=ue_rate, fill = country, label = ue_rate)) + 
+      geom_col(position = 'dodge2')+
+      scale_fill_manual(values = c("Albania" = "#e41a1c", 
+                                   "North Macedonia" = "#377eb8",
+                                   "Montenegro" = "#4daf4a",
+                                   "Republic of Serbia" = "#984ea3",
+                                   "Kosovo" = "#ff7f00",
+                                   "Bosnia & Herzegovina" = "#ffff33"))+
+      ylab('Unemployment Rate')+
+      xlab('Year')+
+      theme_ipsum()+
+      theme(
+        panel.background = element_blank(),
+        legend.title = element_blank()
+      )
+    if (input$label)
+      p <- p + geom_text(position = position_dodge2(width = 0.9), vjust = -0.5)
+    print(p)
+})
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Table
+
+```{r}
+
+DT::renderDataTable({
+    MasterFile %>% filter(country %in% input$show_countries &
+                            Year >= input$Year[1] & Year <= input$Year[2] & 
+                            agegroup == input$agegroup & 
+                            gender == input$gender)
+  })
+```
+
+git remote add origin https://github.com/CorneliusvonLenthe/WB_Dashboard.git
+git branch -M main
+git push -u origin main
