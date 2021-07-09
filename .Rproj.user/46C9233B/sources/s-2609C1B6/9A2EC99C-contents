@@ -22,22 +22,8 @@ library(digest)
 library(usethis)
 library(gitcreds)
 library(gh)
-usethis::use_git_config(user.name = "Cornelius von Lenthe", user.email = "corneliusvl@live.de")
-AL <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/Albania/ALBUnemploymentRate2020.xlsx")
-ME <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/ME/MEUnemploymentRate2020.xlsx")
-SR <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/RS/RSUnemploymentRate2020.xlsx")
-MKD <- read_excel("C:/Users/WB571596/OneDrive - WBG/Code/WesternBalkanDashboard/Clean Data/MKD/MKDUnemploymentRate2020.xlsx")
-
-MasterFile <- rbind(ME, SR)
-MasterFile <- rbind(MasterFile, AL)
-MasterFile <- rbind(MasterFile, MKD)
-MasterFile$Year <- as.numeric(MasterFile$Year)
-MasterFile$ue_rate <- as.numeric(MasterFile$ue_rate)
-MasterFile$ue_rate <- format(as.numeric(MasterFile$ue_rate), digits = 2)
-
-
-MasterFile$ue_rate <- lapply(MasterFile$ue_rate, format, decimal.mark = ",", digits = 2)
-MasterFile$ue_rate <- as.numeric(MasterFile$ue_rate)
+url_Masterfile <- "https://github.com/CorneliusvonLenthe/WB_Dashboard/raw/ec6c846be645e8313b9e416b3a203d3e891832c1/datasets/MasterFile.xlsx"
+MasterFile <- tryCatch(rio::import(url_Masterfile) , error = function(e) return(NA))
 ```
 
 Inputs {.sidebar}

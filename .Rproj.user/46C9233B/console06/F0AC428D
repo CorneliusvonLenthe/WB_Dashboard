@@ -409,4 +409,39 @@ Documents/WB_Dashboard/WB_Dashboard/.git/[0K
 [0K
 C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Ka
 dd *[0K
+[0K[?25h]0;  - git  commit -m "init commit"[?25l
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Kc
+ommit -m "init commit"[0K
+[0K[?25h]0; [master ec6c846] init commit[0K[?25l
+ 1 file changed, 46 insertions(+)[0K
+[0K
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Kr
+emote add origin git@github.com:CorneliusvonLenthe/WB_Dashboard.git[0K
+[0K[?25h]0;  - git  remote add origin git@github.com:CorneliusvonLenthe/WB_Dashboard.git]0; error: remote origin already exists.[0K[?25l
+[0K
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Kp
+ush -u origin master[0K
+[0K[?25h]0;  - git  push -u origin masterEnumerating objects: 105, done.[0K[?25l
+Counting objects:   3% (4/102)[0K[24G[?25h[?25lCounting objects: 100% (102/102), done.[0K
+Delta compression using up to 8 threads[0K
+Compressing objects:  51% (45/87)[0K[4G[?25h[?25lCompressing objects:  83% (73/87)[0K[1G[?25h[?25lCompressing objects:  88% (77/87)[0K[1G[?25hCompressing objects: 100% (87/87), done.[0K[?25l
+Writing objects:  42% (41/97)[0K[1G[?25h[?25lWriting objects:  65% (64/97)[0K[1G[?25h[?25lWriting objects:  71% (69/97)[0K[1G[?25h[?25lWriting objects:  76% (74/97)[0K[1G[?25h[?25lWriting objects:  77% (75/97)[0K[1G[?25h[?25lWriting objects:  79% (77/97)[0K[1G[?25hWriting objects: 100% (97/97), 1.19 MiB | 3.07 MiB/s, done.[0K[?25l
+Total 97 (delta 9), reused 0 (delta 0), pack-reused 0[0K
+[0K[?25hremote: Resolving deltas: 100% (9/9), completed with 1 local object.[0K[?25l
+[0K[?25hTo https://github.com/CorneliusvonLenthe/WB_Dashboard.git[0K[?25l
+   61c4bb6..ec6c846  master -> master[0K
+[0K[?25hBranch 'master' set up to track remote branch 'master' from 'origin'.[0K[?25l
+[0K[?25h]0; [?25l
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>[0K[?25hg[0Ki[0Kt[0K[74G[?25lC:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Kp
+[0K[?25hu[0Ks[0Kh[0K[5G[?25lush -[0K[?25hy[0K[8G[7G[?25lush -[0K[?25hu[0K[8G[?25lush -u o[0K[?25hr[0Ki[0Kg[0Ki[0Kn[0K[15G[?25lush -u origin m[0K[?25ha[0Ks[0Kt[0Ke[0Kr[0K]0;  - git  push -u origin master[?25l
+[0K[?25hEverything up-to-date[0K[?25l
+Branch 'master' set up to track remote branch 'master' from 'origin'.[0K
+[0K[?25h]0; [?25l
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>[0K[?25hgit [0Ki[?25l
+nit[0K
+[0K[?25h]0;  - git  init]0;  - git  add *Reinitialized existing Git repository in C:/Users/WB571596/OneDrive - WBG[0K/[?25l
+Documents/WB_Dashboard/WB_Dashboard/.git/[0K
+[0K
+C:\Users\WB571596\OneDrive - WBG\Documents\WB_Dashboard\WB_Dashboard>git [0Ka
+dd *[0K
 [0K[?25h
