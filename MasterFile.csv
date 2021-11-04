@@ -1,4 +1,4 @@
-Year,Sex,CountryCode,AgeGroup,Activity Rate,Employment,Employment-to-population,Informal Employment,Informal Employment Rate,Labor Force,Longterm Unemployed >1 year,NEET rate,Total Unemployment,Unemployment Rate,Working Age Population,Registered Jobseeker (1000s),Unemployment Beneficiaries,Long-term Unemployment Rate,Inactivity Rate
+Year,Sex,CountryCode,AgeGroup,Activity Rate,Employment,Employment-to-population,Informal Employment,Informal Employment Rate,Labor Force,Longterm Unemployed >1 year,NEET rate,Total Unemployment,Unemployment Rate,Working Age Population,Registered Jobseeker in 1000s,Unemployment Beneficiaries,Long-term Unemployment Rate,Inactivity Rate
 2012,Female,SRB,15+,,,,,,,,,,,,,28052,,
 2012,Male,SRB,15+,,,,,,,,,,,,,33581,,
 2012,Total,SRB,15+,,,,,,,,,,,,,61633,,
